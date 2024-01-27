@@ -1,7 +1,7 @@
 <?php
-require "db.php";
-header('Refresh: 5; formulaire.php');
-var_dump($_POST);
+require "../database/db.php";
+header('Refresh: 5; ../index.php');
+
 
 $titre = $_POST['titre'];
 $auteur = $_POST['auteur'];
@@ -10,6 +10,7 @@ $description = $_POST['description'];
 $date_creation = $_POST['date_creation'];
 $prix = $_POST['prix'];
 $btnSave = $_POST['save'];
+
 
 
 if (isset($titre, $auteur, $type, $description, $date_creation, $prix)) {

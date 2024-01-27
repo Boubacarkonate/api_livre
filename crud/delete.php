@@ -1,19 +1,20 @@
 <?php
 
-require "db.php";
+require "../database/db.php";
+header('Refresh: 3; ../index.php');
 
 // Headers :
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: DELETE");
+header("Access-Control-Allow-Methods: GET");   //fonctionne avec GET
 
-// Récupérer l'ID de la requête
+
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;
 
-if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {               //fonctionne avec GET
     try {
         if ($PDO) {
-            // Utiliser une requête préparée pour éviter les attaques par injection SQL
+
             $stmt = $PDO->prepare("DELETE FROM livre WHERE id = :id");
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();

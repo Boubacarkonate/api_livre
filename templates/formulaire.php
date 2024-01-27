@@ -10,7 +10,7 @@
 </head>
 <body>
     <h1>CREER UNE ANNONCE D'UN LIVRE</h1>
-    <form action="create.php" method="post">
+    <form action="../crud/create.php" method="post">
         <label for="titre">titre</label>
         <br>
         <input type="text" name="titre" id="" placeholder="titre">

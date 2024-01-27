@@ -1,5 +1,5 @@
 <?php
-require "db.php";
+require "../database/db.php";
 //headers :
 
 header("Access-Control-Allow-Origin: *");       //accès autorisé à tous les domaine d'accéder à l'api
@@ -8,6 +8,7 @@ header("Access-Control-Allow-Methods: GET");       //seule la méthode GET est a
 
 // Vérifiez si un ID est spécifié dans la requête GET  
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try {
