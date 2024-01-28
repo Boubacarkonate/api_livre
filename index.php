@@ -1,5 +1,5 @@
 <?php
-$url = "http://localhost:8080/api/crud/read/read_all.php";
+$url = "http://localhost:8080/api_rest/crud/read/read_all.php";
 $data = file_get_contents($url);
 $result = json_decode($data, true);
 ?>

@@ -3,7 +3,7 @@ $id = $_GET['id'];
 
 if ($id) {
 
-    $url = "http://localhost:8080/api/crud/read/read_one?id=$id";
+    $url = "http://localhost:8080/api_rest/crud/read/read_one?id=$id";
     $data = file_get_contents($url);
     $value = json_decode($data, true);
 
