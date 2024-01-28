@@ -1,5 +1,5 @@
 <?php
-require "../database/db.php";
+require "../../database/db.php";
 //headers :
 
 header("Access-Control-Allow-Origin: *");       //accès autorisé à tous les domaine d'accéder à l'api

@@ -1,17 +1,16 @@
 <?php
-
 require "../database/db.php";
 header('Refresh: 3; ../index.php');
 
 // Headers :
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: GET");   //fonctionne avec GET
+header("Access-Control-Allow-Methods: DELETE");
 
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {               //fonctionne avec GET
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_method']) && $_POST['_method'] === 'DELETE') {
     try {
         if ($PDO) {
 
@@ -41,4 +40,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {               //fonctionne avec GET
     http_response_code(405);
     echo json_encode(["message" => "La méthode n'est pas autorisée"]);
 }
-?>

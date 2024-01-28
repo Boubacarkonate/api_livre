@@ -1,81 +1,50 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier une annonce d'un livre</title>
-    <style>
-        h1 {text-align: center; padding: 5%;}
-        form {text-align: center;}
-    </style>
+    <style>h1 {text-align: center; padding: 2%;} form {text-align: center;}</style>
 </head>
 <body>
     <h1>MODIFIER UNE ANNONCE D'UN LIVRE</h1>
+<?php
+ require "../database/db.php";
+ $id = isset($_GET['id']) ? intval($_GET['id']) : null;
+$stmt = $PDO->prepare("SELECT * FROM livre WHERE id = ?");
+$stmt->execute([$id]);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+?>
+    <form action="../crud/update.php?id=<?php echo $id; ?>" method="post">
+        <!-- Utilisez un champ hidden pour simuler la méthode PUT -->
+        <input type="hidden" name="_method" value="PUT">
 
-    <?php
-    require "../database/db.php";
-
-    $id = isset($_GET['id']) ? intval($_GET['id']) : null;
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Traitement du formulaire de modification 
-        $titre = $_POST['titre'];
-        $auteur = $_POST['auteur'];
-        $type = $_POST['type'];
-        $description = $_POST['description'];
-        $date_creation = $_POST['date_creation'];
-        $prix = $_POST['prix'];
-
-        
-
-        //requête préparée pour éviter les attaques par injection SQL
-        $stmt = $PDO->prepare("UPDATE livre SET title = ?, author = ?, type = ?, description = ?, created_date = ?, price = ? WHERE id = ?");
-        $stmt->execute([$titre, $auteur, $type, $description, $date_creation, $prix, $id]);
-
-       
-        echo "Mise à jour effectuée avec succès.";
-        header('Refresh: 3; ../index.php');
-    }
-
-    $stmt = $PDO->prepare("SELECT * FROM livre WHERE id = ?");
-    $stmt->execute([$id]);
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($result) :
-    ?>
-
-    <form action="" method="post">
         <label for="titre">Titre</label>
         <br>
-        <input type="text" name="titre" id="titre" placeholder="Titre" value="<?= $result['title']; ?>">
+        <input type="text" name="titre" id="titre" placeholder="Titre" value="<?= isset($result['title']) ? htmlspecialchars($result['title']) : ''; ?>">
         <br><br>
         <label for="auteur">Auteur</label>
         <br>
-        <input type="text" name="auteur" id="auteur" placeholder="Auteur" value="<?= $result['author']; ?>">
+        <input type="text" name="auteur" id="auteur" placeholder="Auteur" value="<?= isset($result['author']) ? htmlspecialchars($result['author']) : ''; ?>">
         <br><br>
         <label for="type">Type</label>
         <br>
-        <input type="text" name="type" id="type" placeholder="Type" value="<?= $result['type']; ?>">
+        <input type="text" name="type" id="type" placeholder="type" value="<?= isset($result['type']) ? htmlspecialchars($result['type']) : ''; ?>">
         <br><br>
-        <label for="description">Description</label>
+        <label for="type">Description</label>
         <br>
-        <textarea name="description" id="description" placeholder="Résumé du livre" cols="30" rows="10"><?= $result['description']; ?></textarea>
+        <input type="text" name="description" id="description" placeholder="description" value="<?= isset($result['description']) ? htmlspecialchars($result['description']) : ''; ?>">
         <br><br>
-        <label for="date_creation">Date de parution</label>
+        <label for="auteur">Date de parution</label>
         <br>
-        <input type="date" name="date_creation" id="date_creation" placeholder="Date de création" value="<?= $result['created_date']; ?>">
+        <input type="date" name="date_creation" id="date_creation" placeholder="date_creation" value="<?= isset($result['created_date']) ? htmlspecialchars($result['created_date']) : ''; ?>">
         <br><br>
-        <label for="prix">Prix</label>
+        <label for="auteur">Prix</label>
         <br>
-        <input type="number" name="prix" id="prix" placeholder="Prix" value="<?= $result['price']; ?>">
+        <input type="text" name="prix" id="prix" placeholder="prix" value="<?= isset($result['price']) ? htmlspecialchars($result['price']) : ''; ?>">
         <br><br>
         <input type="submit" name="modifier" value="ENREGISTRER">
     </form>
-    </body>
-    </html>
-
-    <?php
-    else :
-        echo "Livre non trouvé.";
-    endif;
-    ?>
+</body>
+</html>
